@@ -7,20 +7,8 @@ class App extends React.Component {
     super();
 
     this.state = {
-      monsters: []
-      //   {
-      //     name: 'Frankenstein',
-      //     id: 'asc1'
-      //   },
-      //   {
-      //     name: 'Dracula',
-      //     id: 'asc2'
-      //   },
-      //   {
-      //     name: 'Zombie',
-      //     id: 'asc3'
-      //   }
-      // ]
+      monsters: [],
+      searchField: ''
     };
   }
 
@@ -33,10 +21,25 @@ class App extends React.Component {
     // .then(promise => console.log(promise))
   }
 
+
+
+
+
   render(){
+    const {monsters, searchField } = this.state;
+    const filteredMonsters = monsters.filter(monster => 
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+      )
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters} />
+        <input type='search' 
+          placeholder='search monsters' 
+          onChange={e => {this.setState({ searchField: e.target.value});
+          console.log(this.state)
+        }}
+         
+        />
+        <CardList monsters={filteredMonsters} />
         {/* {
       this.state.monsters.map(monster => <h1 key={monster.id}>{monster.name}</h1>)
       } */}
